@@ -67,7 +67,7 @@ namespace WebImageViewer
         {
             if (!this.visible) return;
 
-            this.screenRect = GUILayout.Window(this.GetInstanceID(), this.screenRect, this.OnWindow, "Web Image Viewer");
+            this.screenRect = GUILayout.Window(this.GetInstanceID(), this.screenRect, this.OnWindow, "Web Image Viewer", HighLogic.Skin.window, GUILayout.ExpandWidth(false));
             if (HighLogic.LoadedScene != GameScenes.SPACECENTER && !this.hasCentred && this.screenRect.width > 0.0f && this.screenRect.height > 0.0f)
             {
                 this.hasCentred = true;
@@ -82,13 +82,17 @@ namespace WebImageViewer
 
         private void OnWindow(int windowId)
         {
-            url = GUILayout.TextField(url);
+            GUI.skin = HighLogic.Skin;
+            GUILayout.BeginVertical();
+            url = GUILayout.TextField(url, GUILayout.Width(300.0f));
             if (GUILayout.Button("View Image"))
             {
                 var display = this.gameObject.AddComponent<WebImageViewerDisplay>();
                 display.SetUrl(url);
             }
+            GUILayout.EndVertical();
             GUI.DragWindow();
+            GUI.skin = null;
         }
     }
 }
