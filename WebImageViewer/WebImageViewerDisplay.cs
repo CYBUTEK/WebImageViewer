@@ -48,7 +48,7 @@ namespace WebImageViewer
 
         public void OnGUI()
         {
-            this.screenRect = GUILayout.Window(this.GetInstanceID(), this.screenRect, this.OnWindow, "Web Image Viewer");
+            this.screenRect = GUILayout.Window(this.GetInstanceID(), this.screenRect, this.OnWindow, "Web Image Viewer", HighLogic.Skin.window);
         }
 
         public void SetUrl(string url)
@@ -64,6 +64,7 @@ namespace WebImageViewer
 
         private void OnWindow(int windowId)
         {
+            GUI.skin = HighLogic.Skin;
             if (this.texture == null)
             {
                 GUILayout.Label("Downloading...");
@@ -78,6 +79,7 @@ namespace WebImageViewer
                 Destroy(this);
             }
             GUI.DragWindow();
+            GUI.skin = null;
         }
 
         private IEnumerator Process(string url)
