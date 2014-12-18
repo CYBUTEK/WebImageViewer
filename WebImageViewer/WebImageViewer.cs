@@ -85,11 +85,17 @@ namespace WebImageViewer
             GUI.skin = HighLogic.Skin;
             GUILayout.BeginVertical();
             url = GUILayout.TextField(url, GUILayout.Width(300.0f));
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Clear", GUILayout.Width(100.0f)))
+            {
+                url = string.Empty;
+            }
             if (GUILayout.Button("View Image"))
             {
                 var display = this.gameObject.AddComponent<WebImageViewerDisplay>();
                 display.SetUrl(url);
             }
+            GUILayout.EndHorizontal();
             GUILayout.EndVertical();
             GUI.DragWindow();
             GUI.skin = null;
